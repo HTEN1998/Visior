@@ -178,8 +178,6 @@ if __name__ == "__main__":
     vo.detect_objects()
 
     # s = Start()
-    # C:\Users\user\Pictures\pubg.png
-    # C:/Users/user/Desktop/Official_IMage.jpg
     # s.image_load("test_image2.jpg")
     # s.image_load("test_image3.jpg")
     # s.image_load("test_image_blur.jpg")
