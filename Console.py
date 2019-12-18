@@ -1,4 +1,5 @@
 from tkinter import *
+from TkinterCam import *
 
 
 class Console:
@@ -10,20 +11,17 @@ class Console:
         # self.window.config(bg="dodger blue")
         # self.window.wm_attributes("-transparent","dodger blue")
         self.window = Tk()
+        self.window.config(bg="black")
+        self.window.overrideredirect(1)
+        w_height, w_width = 360, 360
+        self.window.geometry(f"{w_height}x{w_width}")
+        width = self.window.winfo_screenwidth()
+        height = self.window.winfo_screenheight()
+        print(f"width x height -> {width}x{height}")
+        self.window.geometry(f"+{abs(w_width // 2 - width // 2)}+{abs(w_height // 2 - height // 2)}")
 
     def MainMenu(self):
         try:
-            # self.window.wait_visibility()
-            self.window.config(bg="black")
-            # self.window.wm_attributes("-transparent","dodger blue")
-            self.window.overrideredirect(1)
-            w_height, w_width = 360, 360
-            self.window.geometry(f"{w_height}x{w_width}")
-            width = self.window.winfo_screenwidth()
-            height = self.window.winfo_screenheight()
-            print(f"width x height -> {width}x{height}")
-            self.window.geometry(f"+{abs(w_width // 2 - width // 2)}+{abs(w_height // 2 - height // 2)}")
-            
             Label(self.window, text="V  I  S  I  O  R\n console", bg="black", fg="#2ade2a", font=("Courier ", 20)).pack(
                 side="top",
                 pady="10",
@@ -33,7 +31,7 @@ class Console:
                    borderwidth=0).place(relx=0.9, rely=0.0)
             Button(self.window, text="\nRun Tests\n", command=self.window.destroy, width=20, bg="#2ade2a",
                    fg="black", borderwidth=1).place(relx=0.3, rely=0.7)
-            Button(self.window, text="Remote\n Controller\n Mode", command=self.window.destroy, width=15, bg="#2ade2a",
+            Button(self.window, text="Remote\n Controller\n Mode", command=self.RcMode, width=15, bg="#2ade2a",
                    fg="black",
                    borderwidth=2).place(relx=0.1, rely=0.4)
             Button(self.window, text="Autonomous\n Controlled\n Mode", command=self.window.destroy, width=15,
@@ -43,6 +41,16 @@ class Console:
             self.window.mainloop()
         except Exception as e:
             print(f"Exception in <Function> MainMenu - <Class> Console - <File> Console.py --> {e}")
+            pass
+
+    def RcMode(self):
+        try:
+            if self.window:
+                self.window.destroy()
+                print("Jumped to TkinterCam  from Console .. ")
+                RcModeController().StreamScreen()
+        except Exception as e:
+            print(f"Exception in <Function> RcMode - <Class> Console - <File> Console.py --> {e}")
             pass
 
     def __del__(self):
