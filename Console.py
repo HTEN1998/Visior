@@ -23,7 +23,8 @@ class Console:
             height = self.window.winfo_screenheight()
             print(f"width x height -> {width}x{height}")
             self.window.geometry(f"+{abs(w_width // 2 - width // 2)}+{abs(w_height // 2 - height // 2)}")
-            Label(self.window, text="V  i  s  i  o  r\n console", bg="black", fg="#2ade2a", font=("Courier ", 20)).pack(
+            
+            Label(self.window, text="V  I  S  I  O  R\n console", bg="black", fg="#2ade2a", font=("Courier ", 20)).pack(
                 side="top",
                 pady="10",
                 expand=False)
