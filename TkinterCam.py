@@ -42,9 +42,8 @@ class RcModeController:
 
     def ReadPresentImages(self):
         imglist = os.listdir("./Snapshots/")
-        for img_names in imglist:
-            first_split = img_names.split("_")
-            second_split = first_split[1].split(".")
+        first_split = img_names[::-1].split("_")
+        second_split = first_split[1].split(".")
             self.image_count = int(second_split[0])
         print(f"image_counter -> {self.image_count}")
 
