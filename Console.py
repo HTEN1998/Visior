@@ -26,7 +26,6 @@ class Console:
                 side="top",
                 pady="10",
                 expand=False)
-
             Button(self.window, text="Exit ", command=self.window.destroy, width=5, bg="red", fg="white",
                    borderwidth=0).place(relx=0.9, rely=0.0)
             Button(self.window, text="\nRun Tests\n", command=self.window.destroy, width=20, bg="#2ade2a",
