@@ -20,17 +20,23 @@ print("Ending point is ->  E")
 print("Node	 H_values")
 for i,j in h_value.items():
 	print("%s  	 %d"%(i,j))
-print("------------------------------------")
+print("-------------------------------")
+def print_matrix(m):
+	print("-------------------------------")
+	for i in range(4):
+		for j in range(4):
+			print(m[i][j],end=" ")
+		print()
 
 def  get_value(keystring):
+	key=keystring.split(",") 
 	sum=0
-	for i in range(0,len(keystring)-1):
-		sum+=graph[mapper[keystring[i]]][mapper[keystring[i+1]]]
-	sum+=h_value[keystring[len(keystring)-1]]
+	for i in range(0,len(key)-1):
+		sum+=graph[mapper[key[i]]][mapper[key[i+1]]]
+	sum+=h_value[key[len(key)-1]]
 	return sum
 
 def generate_distance(keystring):
-	#print("keystring",keystring)
 	value=get_value(keystring)
 	distance[keystring]=value
 
@@ -39,10 +45,11 @@ def check_row(label):
 	for i in range(0,8):
 		if (graph[mapper[rowlabel]][i]!=0):
 			#print("%s -> %s = %d"%(rowlabel,revmapper[i],graph[mapper[rowlabel]][i]))
-			generate_distance(label+revmapper[i])
+			generate_distance(label+","+revmapper[i])
 	#print(distance)
 
-
+print("distance graph:")
+print_matrix(graph)
 start_time = t.time()
 check_row('S')
 print(distance)
