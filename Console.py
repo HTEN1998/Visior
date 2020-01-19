@@ -155,7 +155,7 @@ class Console:
             last_val += 0.07
             i += 1
         sleep(0.2)
-        Label(self.window, text = "C o t r o l    P a n e l", bg = "black", fg = "#2ade2a",
+        Label(self.window, text = "C o n t r o l    P a n e l", bg = "black", fg = "#2ade2a",
               font = ("Courier ", 15)).place(relx = 0.35, rely = 0.12)
 
 
