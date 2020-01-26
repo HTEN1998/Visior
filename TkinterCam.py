@@ -1,14 +1,14 @@
-#Patched .cfg connection for cam frame dims
+# Patched .cfg connection for cam frame dims
+
+import os
+from tkinter import Button, Label, Tk
 
 import cv2
-from tkinter import Tk, Label, Button
 from PIL import Image, ImageTk
-import os
-from settings import Settings,CameraSettings
 from pynput import keyboard as py_key
-from IrTestStub import IrTestStub,GroundConnect
-from Console import Console
-from time import sleep
+
+from IrTestStub import GroundConnect, IrTestStub
+from settings import CameraSettings, Settings
 
 
 # from CameraMotion import CameraMotion
@@ -34,13 +34,11 @@ class RcModeController:
     CamMotion = ""
     ground_connect = ""
 
-
     AreaClearStr = "\u2714 " + "Front Area Clear"
     ObstacleStr = "\u26A0 " + "Object Detected In Front Of Me"
 
-    GroundContactTrue =  "\u2714 " + " Ground Contact True"
+    GroundContactTrue = "\u2714 " + " Ground Contact True"
     GroundContactNegative = "\u26A0 " + "Ground Contact Negative"
-
 
     def __init__(self):
         try:
@@ -65,17 +63,15 @@ class RcModeController:
             # self.CamMotion = CameraMotion()
             # self.CamMotion.ResetCameraPosition()
             self.notification = Label(self.window, font = ("Courier bold", 12),
-                  text = "\u26A0 " + "Loading ...", width = 30,
-                  fg = "white",
-                  bg = "black")
-            self.notification.place(relx = 0.5, rely = 0.57)
-
-
-
-            self.ground_connect = Label(self.window, font = ("Courier bold", 12),
                                       text = "\u26A0 " + "Loading ...", width = 30,
                                       fg = "white",
                                       bg = "black")
+            self.notification.place(relx = 0.5, rely = 0.57)
+
+            self.ground_connect = Label(self.window, font = ("Courier bold", 12),
+                                        text = "\u26A0 " + "Loading ...", width = 30,
+                                        fg = "white",
+                                        bg = "black")
             self.ground_connect.place(relx = 0.5, rely = 0.63)
 
             self.IrSimulator()
@@ -84,33 +80,24 @@ class RcModeController:
             print(f"Exception in <Function> __init__ - <Class> RcModeController - <File> TkinterCam.py --> {e}")
             pass
 
-
-
-
-
     def IrSimulator(self):
 
-        if IrTestStub() :
-            self.notification.config(fg = "red" , text = self.ObstacleStr)
+        if IrTestStub():
+            self.notification.config(fg = "red", text = self.ObstacleStr)
             self.notification.update()
         else:
-            self.notification.config(fg = "#2ade2a",text = self.AreaClearStr)
+            self.notification.config(fg = "#2ade2a", text = self.AreaClearStr)
             self.notification.update()
-
 
         if GroundConnect():
-            self.ground_connect.config(fg = "#2ade2a" , text = self.GroundContactTrue)
+            self.ground_connect.config(fg = "#2ade2a", text = self.GroundContactTrue)
             self.ground_connect.update()
         else:
-            self.ground_connect.config(fg = "red" , text = self.GroundContactNegative)
+            self.ground_connect.config(fg = "red", text = self.GroundContactNegative)
             self.ground_connect.update()
 
         print("Updated Object Status....")
-        self.window.after(1000,self.IrSimulator)
-
-
-
-
+        self.window.after(1000, self.IrSimulator)
 
     def ReadPresentImages(self):
         imglist = os.listdir("./Snapshots/")[-1]
@@ -119,12 +106,10 @@ class RcModeController:
         self.image_count = int(second_split[0])
         print(f"image_counter -> {self.image_count}")
 
-
-
     def on_press(self, key):
         b_g = "black"
         f_g = "red"
-        #border_w = 3
+        # border_w = 3
 
         if str(format(key)) == "'w'":
             self.CamUp.config(bg = b_g, fg = f_g, font = ("Courier bold", 17))
@@ -148,7 +133,7 @@ class RcModeController:
     def on_release(self, key):
         b_g = "black"
         f_g = "#2ade2a"
-        #border_w = 1
+        # border_w = 1
         if str(format(key)) == "'w'":
             self.CamUp.config(bg = b_g, fg = f_g, font = ("Courier bold", 15))
         if str(format(key)) == "'s'":
@@ -191,42 +176,27 @@ class RcModeController:
                    bg = "#00e6b8",
                    fg = "black",
                    borderwidth = 3, highlightthickness = 0, activebackground = "black",
-                   activeforeground = "white",relief="ridge" ).place(relx = 0.013, rely = 0.57)
+                   activeforeground = "white", relief = "ridge").place(relx = 0.005, rely = 0.57)
             Button(self.window, font = ("Courier bold", 11), text = "\u25CF " + "Record", command = self.SaveFrame,
                    width = 10,
                    bg = "black",
                    fg = "#00e6b8",
                    borderwidth = 3, highlightthickness = 0, activebackground = "black",
-                   activeforeground = "white",relief="ridge").place(relx = 0.013 * 2 + 0.15, rely = 0.57)
+                   activeforeground = "white", relief = "ridge").place(relx = 0.013 * 2 + 0.15, rely = 0.57)
 
             self.CreateCameraButtons()
             self.CreateMovementButton()
 
-            self.canvas = Label(self.window, width = CameraSettings().getCamFrameDim("width"), height = CameraSettings().getCamFrameDim("height"), bg = "red")
+            self.canvas = Label(self.window, width = CameraSettings().getCamFrameDim("width"),
+                                height = CameraSettings().getCamFrameDim("height"), bg = "red")
             self.canvas.pack()
 
-            ############# ANIMATION TEST #########################
-            #i = 1.0
-            #while (i >= 0.5):
-                #notify = Label(self.window, font = ("Courier bold", 12),
-                 #              text = "\u26A0 " + "Object Detected In Front Of Me", width = 30,
-                 #              fg = "white",
-                 #              bg = "black")
-                #notify.place(relx = i, rely = 0.57)
-                #i -= 0.01
-                #sleep(0.01211)
-                #self.window.update()
-                #notify.forget()
-
-            #notify.forget()
-           #self.window.update()
-            ############# ANIMATION TEST ENDED #########################
-            # self.update()
             self.window.mainloop()
 
         except Exception as e:
             print(f"Exception in <Function> StreamScreen - <Class> RcModeController - <File> TkinterCam.py --> {e}")
             pass
+
 
     def SaveFrame(self):
         try:
@@ -299,7 +269,7 @@ class RcModeController:
 
         Label(self.window, font = ("Courier bold", 12), text = "Camera Control", width = len(" Camera Control "),
               fg = "white",
-              bg = "black").place(relx = 0.132+0.04, rely = 0.89)
+              bg = "black").place(relx = 0.132 + 0.04, rely = 0.89)
 
     def CreateMovementButton(self):
 
@@ -308,36 +278,34 @@ class RcModeController:
                                   fg = "red",
                                   borderwidth = 0, highlightthickness = 0, activebackground = "black",
                                   activeforeground = "white")
-        self.MoveForward.place(relx = 0.7, rely = 0.72)
+        self.MoveForward.place(relx = 0.675, rely = 0.72)
         self.MoveBackward = Button(self.window, font = ("Courier bold", 16), text = "\u2193", width = 4,
                                    bg = "black",
                                    fg = "red",
                                    borderwidth = 0, highlightthickness = 0, activebackground = "black",
                                    activeforeground = "white")
-        self.MoveBackward.place(relx = 0.7, rely = 0.8)
+        self.MoveBackward.place(relx = 0.675, rely = 0.8)
         self.TurnLeft = Button(self.window, font = ("Courier bold", 16), text = "\u2190", width = 4,
                                bg = "black",
                                fg = "red",
                                borderwidth = 0, highlightthickness = 0, activebackground = "black",
                                activeforeground = "white")
-        self.TurnLeft.place(relx = 0.62, rely = 0.8)
+        self.TurnLeft.place(relx = 0.6, rely = 0.8)
         self.TurnRight = Button(self.window, font = ("Courier bold", 16), text = "\u2192", width = 4,
                                 bg = "black",
                                 fg = "red",
                                 borderwidth = 0, highlightthickness = 0, activebackground = "black",
                                 activeforeground = "white")
-        self.TurnRight.place(relx = 0.78, rely = 0.8)
+        self.TurnRight.place(relx = 0.75, rely = 0.8)
         Label(self.window, font = ("Arial bold", 7), justify = "left",
               text = "Up Key : Forward\n\nDown Key : Back\n\nLeft Key : Left\n\nRight Key : Right",
               width = len(" Camera Control "),
               fg = "#00e6b8",
-              bg = "black").place(relx = 0.86, rely = 0.73)
+              bg = "black").place(relx = 0.82, rely = 0.73)#change value
 
         Label(self.window, font = ("Courier bold", 12), text = "Motion Control", width = len(" Camera Control "),
               fg = "white",
-              bg = "black").place(relx = 0.63, rely = 0.89)
-
-
+              bg = "black").place(relx = 0.6, rely = 0.89)
 
 
 if __name__ == "__main__":
