@@ -1,11 +1,11 @@
-from tkinter import *
-from TkinterCam import *
-from SystemTest import *
-from settings import Settings
-from MessageBox import messagebox
-from time import sleep
-from UpdateConsole import Updates
 import os
+from time import sleep
+
+from MessageBox import messagebox
+from settings import Settings
+from SystemTest import *
+from TkinterCam import *
+from UpdateConsole import Updates
 
 
 class Console:
@@ -59,7 +59,6 @@ class Console:
         #        borderwidth = 3, highlightthickness = 0, activebackground = "black",
         #        activeforeground = "white",relief="ridge").place(relx = 0.63, rely = 0.93)
 
-
         self.radio_buttton_vars.clear()
         print("Console MainMenu Creating Call")
         self.MainMenu()
@@ -73,9 +72,9 @@ class Console:
 
             for indexes, values in self.radio_buttons_labels_vals.items():
                 Radiobutton(self.window, text = values[0], variable = self.radio_var, value = values[-1], bg = "black",
-                            fg = "red", font = ("Cambria bold ", 11),borderwidth = 0, highlightthickness = 0,
+                            fg = "red", font = ("Cambria bold ", 11), borderwidth = 0, highlightthickness = 0,
                             command = lambda: self.SetRadioClicked(self.radio_var.get()), activebackground = "black",
-                            activeforeground = "white").place(relx = 0.2,rely = y_pos)
+                            activeforeground = "white").place(relx = 0.2, rely = y_pos)
                 Label(self.window, text = values[1], bg = "black", fg = "#00e6b8", font = ("Courier ", 10),
                       justify = "left").place(relx = 0.2, rely = y_pos + 0.055)
                 i += 1
@@ -83,12 +82,13 @@ class Console:
 
             Button(self.window, font = ("Cambria bold", 11), text = "Proceed", width = 10, fg = "#00e6b8", bg = "black",
                    borderwidth = 3, highlightthickness = 0, command = self.callDecider, activebackground = "black",
-                   activeforeground = "white",relief="ridge").place(relx = 0.83, rely = y_pos - 0.08)
+                   activeforeground = "white", relief = "ridge").place(relx = 0.8, rely = y_pos - 0.09)
 
-            Button(self.window, font = ("Cambria bold", 11), text = "Check Updates", command = self.CheckUpdates, width = 11,
-                    fg = "#2ade2a", bg = "black",
+            Button(self.window, font = ("Cambria bold", 11), text = "Check Updates", command = self.CheckUpdates,
+                   width = 11,
+                   fg = "#2ade2a", bg = "black",
                    borderwidth = 3, highlightthickness = 0, activebackground = "black",
-                   activeforeground = "white",relief="ridge").place(relx = 0.02, rely = 0.93)
+                   activeforeground = "white", relief = "ridge").place(relx = 0.02, rely = 0.92)
 
             # Label(self.window, text = "Select any option and click 'Next' to proceed", bg = "black", fg = "red",
             #       font = ("Courier ", 10), justify = "left").place(relx = 0.05, rely = y_pos - 0.08)
@@ -147,7 +147,7 @@ class Console:
                 header_label.place(relx = j, rely = 0.04)
                 cover_label.place(relx = j + 0.07, rely = 0.04)
                 j -= 0.07
-                #j=last_val
+                # j=last_val
 
                 self.window.update()
                 # sleep(0.01711)
@@ -156,14 +156,12 @@ class Console:
             i += 1
         sleep(0.2)
         Label(self.window, text = "C o n t r o l    P a n e l", bg = "black", fg = "#2ade2a",
-              font = ("Courier ", 15)).place(relx = 0.35, rely = 0.12)
-
+              font = ("Courier ", 15),anchor=CENTER).place(relx = 0.35, rely = 0.12)
 
     def CheckUpdates(self):
-        #CreateUpdate()
+        # CreateUpdate()
         self.window.destroy()
         Updates().CheckUpdate()
-
 
     def __del__(self):
         pass
