@@ -1,0 +1,150 @@
+{
+	'type': 'FeatureCollection', 
+	'query': ['chester', 'nj'],
+	'features': 
+		[
+			{
+				'id': 'place.19265010375375880', 
+				'type': 'Feature', 
+				'place_type': ['place'],
+				'relevance': 1,
+				'properties': {'wikidata': 'Q3014459'},
+				'text': 'Chester',
+				'place_name': 'Chester, New Jersey, United States', 
+				'bbox': [-74.7406370098727, 40.7194501349244, -74.6237060993922, 40.8336099261131],
+				'center': [-74.6968, 40.7843], 
+				'geometry': {'type': 'Point', 'coordinates': [-74.6968, 40.7843]}, 
+				'context': 
+					[
+						{
+							'id': 'region.14919479731700330', 
+							'short_code': 'US-NJ', 
+							'wikidata': 'Q1408',
+							'text': 'New Jersey'
+						},
+						{
+							'id': 'country.9053006287256050', 
+							'short_code': 'us', 
+							'wikidata': 'Q30', 
+							'text': 'United States'
+						}
+					]
+			}, 
+			{
+				'id': 'poi.2181843390229', 
+				'type': 'Feature', 
+				'place_type': ['poi'], 
+				'relevance': 0.88,
+				'properties': {'landmark': True, 'category': 'hotel, motel, tourism, lodging'}, 
+				'text': 'Chester Hotel', 
+				'place_name': 'Chester Hotel, Heidelberg, Baden-Württemberg 69123, Germany', 
+				'matching_place_name': 'Chester Hotel, Heidelberg, Baden-Württemberg 69123, Njemačka', 
+				'center': [8.654933, 49.412555], 
+				'geometry': {'coordinates': [8.654933, 49.412555], 'type': 'Point'}, 
+				'context': 
+					[
+							{
+								'id': 'postcode.13858035849199270', 
+								'text': '69123'
+							}, 
+							{
+								'id': 'place.16724611746877140', 
+								'wikidata': 'Q2966',
+								'text': 'Heidelberg'
+							}, 
+							{
+								'id': 'region.10788925313210430', 
+								'short_code': 'DE-BW',
+								'wikidata': 'Q985', 
+								'text': 'Baden-Württemberg'
+							}, 
+							{
+								'id': 'country.10743216036480410', 
+								'short_code': 'de', 
+								'wikidata': 'Q183', 
+								'text': 'Germany'
+							}
+					]
+			}, 
+			{
+				'id': 'poi.1967095096089', 
+				'type': 'Feature', 
+				'place_type': ['poi'],
+				'relevance': 0.74, 
+				'properties': {'landmark': True, 'address': 'Main St'},
+				'text': 'NJT - Gladstone Station (M&E)', 
+				'place_name': 'NJT - Gladstone Station (M&E), Main St, Gladstone, New Jersey 07934, United States', 
+				'center': [-74.666049, 40.720148],
+				'geometry': {'coordinates': [-74.666049, 40.720148], 'type': 'Point'}, 
+				'context': 
+					[
+								{
+									'id': 'postcode.10377134299214310', 
+									'text': '07934'
+								},
+								{
+									'id': 'place.16416232601178620', 
+									'wikidata': 'Q3476628', 
+									'text': 'Gladstone'
+								},
+								{
+									'id': 'region.14919479731700330', 
+									'short_code': 'US-NJ', 
+									'wikidata': 'Q1408', 
+									'text': 'New Jersey'
+								}, 
+								{
+									'id': 'country.9053006287256050', 
+									'short_code': 'us', 
+									'wikidata': 'Q30', 
+									'text': 'United States'
+								}
+					]
+			},
+			{
+				'id': 'region.14919479731700330', 
+				'type': 'Feature', 
+				'place_type': ['region'], 
+				'relevance': 0.5,
+				'properties': {'short_code': 'US-NJ', 'wikidata': 'Q1408'}, 
+				'text': 'New Jersey', 
+				'place_name': 'New Jersey, United States', 
+				'bbox': [-75.563586, 38.743995, -73.785608, 41.35736], 
+				'center': [-74.5, 40], 
+				'geometry':  {'type': 'Point', 	'coordinates': [-74.5, 40]	},
+				'context': 
+					[
+							 		{
+							 			'id': 'country.9053006287256050', 
+							 			'short_code': 'us', 
+							 			'wikidata': 'Q30', 
+							 			'text': 'United States'
+							 		}
+					]
+			}, 
+			 {
+				'id': 'region.8332325568070960', 
+				'type': 'Feature', 
+				'place_type': ['region'], 
+				'relevance': 0.5, 
+				'properties': {'short_code': 'SA-10', 'wikidata': 'Q464718'}, 
+				'text': 'Najran', 
+				'place_name': 'Najran, Saudi Arabia', 
+				'matching_text': 'NJ', 
+				'matching_place_name': 'NJ, Saudi Arabia', 
+				'bbox': [43.638195, 16.94305, 47.745127, 19.531263], 
+				'center': [44.13222, 17.49167], 
+				'geometry': {'type': 'Point', 'coordinates': [44.13222, 17.49167]}, 
+				'context':
+				 	[
+				 		{
+				 			'id': 'country.8186587445602250', 
+				 			'short_code': 'sa', 
+				 			'wikidata': 'Q851', 
+				 			'text': 'Saudi Arabia'
+				 		}
+				 	]
+			}
+		], 
+	'attribution': 'NOTICE: © 2020 Mapbox and its suppliers. All rights reserved. Use of this data is subject to the Mapbox Terms of Service (https://www.mapbox.com/about/maps/). This response and the information it contains may not be retained. POI(s) provided by Foursquare.'
+}
