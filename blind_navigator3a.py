@@ -1,4 +1,4 @@
-#navigation in infinite world,removed max-extend
+#navigation in infinite world
 #change motion-funtion names
 
 class Simlutation():
@@ -103,7 +103,6 @@ class Simlutation():
 			self.backtracker()
 
 	def setup_world(self):
-		#self.max_extend=int(input('Enter matrix size? '))
 		self.current_row,self.current_col=map(int,input("Starting Rows Col-> ").split(" "))
 		self.goal_node_row,self.goal_node_col=map(int,input("Goal Rows Col-> ").split(" "))
 
