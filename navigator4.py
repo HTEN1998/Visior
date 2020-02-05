@@ -1,14 +1,16 @@
+#navigation with random choice of direction
 import random
 
 class traction_code():
 
 	goal_latitude=0.0
 	goal_longitude=0.0
+	sensor_data=[-1,-1,-1]
 
-	def turn_left(self):
+	def   turn_left(self):
 		print("Left")
 
-	def turn_right(self):
+	def   turn_right(self):
 		print("Right")
 
 	def move_forward(self):
@@ -16,75 +18,68 @@ class traction_code():
 	
 	def junction_detector(self):
 		print("juntion detected, current gps co-ordinates")
-		
-		# print("move  forward to take co-ordinates")
-		# self.move_forward()
-		# min_distance=(goal_latitude-current_latitude)+(goal_longitude-current_longtitude)
-		# selected_direction="forward"
-		# print("Reverse")
-		
-		# print("move  left to take co-ordinates")
-		# self.turn_left()
-		# temp=(goal_latitude-current_latitude)+(goal_longitude-current_longtitude)
-		# print("Reverse")
-		# if min_distance>temp: 
-		# 	min_distance=temp
-		# 	selected_direction="left"
-		
-		# print("move  right to take co-ordinates")
-		# self.turn_right()
-		# temp=(goal_latitude-current_latitude)+(goal_longitude-current_longtitude)
-		# 		print("Reverse")
-		# 		if min_distance>temp: 
-		# 			min_distance=temp
-		# 			selected_direction="right"
-		# print("selected_direction= ",selected_direction)
-		
-		print("suppose shortest direction is Forward")	
-		self.move_forward()
-		self.navigator()
+		i = random.choice([0,1,2])
+		if (i==0):
+			self.turn_left()
+			self.navigator()
+		elif (i==1):
+			self.move_forward()
+			self.navigator()
+		elif (i==2):
+			self.turn_right()
+			self.navigator()
 		
 	def backtracker(self):
 		print("Reverse")
-		left_sensor=int(input("Left ? "))
-		right_sensor=int(input("Right ? "))
-		if (left_sensor==0):
-			self.turn_left()
-			self.navigator()
-		elif (right_sensor==0):
-			self.turn_right()
-			self.navigator()
-		elif(left_sensor==1 and right_sensor==1):
+		self.sensor_data[0] = int(input("Left ? "))
+		self.sensor_data[2] = int(input("Right ? "))
+		
+		if(self.sensor_data[0]+self.sensor_data[2]>=2): #blockage in left and right
 			self.backtracker()
 
+		elif(self.sensor_data[0]+self.sensor_data[2]==0):#no blockage in left and right
+			i = random.choice([0,2])	
+			if (i==0):
+				self.turn_left()
+				self.navigator()
+			elif (i==2):
+				self.turn_right()
+				self.navigator()
+
+		elif(self.sensor_data[0]==0): #blockage in left
+			self.turn_left()
+			self.navigator()
+
+		elif(self.sensor_data[2]==0):#blockage in right
+			self.turn_right()
+			self.navigator()			
+				
 
 	def navigator(self):
 		print("navigation called")
 
 		while (True):
-			left_sensor=int(input("Left ? "))
-			front_sensor=int(input("Front ? "))
-			right_sensor=int(input("Right ? "))
+			self.sensor_data[0]=int(input("Left ? "))
+			self.sensor_data[1]=int(input("Front ? "))
+			self.sensor_data[2]=int(input("Right ? "))
 			
-			if (left_sensor+right_sensor+front_sensor<=1):
+			if (self.sensor_data[0]+self.sensor_data[1]+self.sensor_data[2]<=1):	#more than 1 path is available
 				self.junction_detector()
 
-			elif(left_sensor+right_sensor+front_sensor>=3):
+			elif(self.sensor_data[0]+self.sensor_data[1]+self.sensor_data[2]>=3):	#no path is available
 				print("Dead End")
 				self.backtracker()
 
 			else:
-				if left_sensor==0:
+				if self.sensor_data[0]==0:
 					self.turn_left()
-				elif front_sensor==0:
+				elif self.sensor_data[1]==0:
 					self.move_forward()
-				elif right_sensor==0:
+				elif self.sensor_data[2]==0:
 					self.turn_right()
 
 			if input("stop ? (y/n)")=='y':
 				exit()
-				# print("traction stoppped !")
-				# break
 
 
 
