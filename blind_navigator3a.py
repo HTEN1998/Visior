@@ -1,5 +1,4 @@
-#navigation in infinite world
-#removed max-extend
+#navigation in infinite world,removed max-extend
 #change motion-funtion names
 
 class Simlutation():
