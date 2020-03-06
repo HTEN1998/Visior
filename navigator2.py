@@ -3,53 +3,6 @@ class auto_traction():
 	history_stack=["F","F","F","F","F","L","F","F","F","R","F","F","F","F","F","F","R","F","F","R","F","F","F","F","L","F","F","F"]
 	required_direction={"left":0,"right":0}
 
-	def go_forward():
-	front_sensor="no block"
-	while(front_sensor!="block"):
-			print("------------>  move forward")	#drive bot to front
-			front_sensor=input("forward block? ")	#asking front sensor
-
-	def compass(self):
-		if(input_direction=="forward"):
-			go_forward()
-
-			left_sensor=input("left block? ")	#asking left sensor
-			right_sensor=input("right block? ")	#asking right sensor
-			if(left_sensor=='0' and right_sensor=='0'):
-				if(required_direction["left"]>required_direction["right"]):
-					print("------------>  turn left")
-					required_direction["left"]+=1
-					if(required_direction["right"]>0):required_direction["right"]-=1
-					go_forward()
-				elif(required_direction["left"]<required_direction["right"]):
-					print("------------>  turn right")
-					required_direction["right"]+=1
-					if(required_direction["left"]>0):required_direction["left"]-=1
-					go_forward()
-				else:
-					print("------------>  turn left")#default turn
-					required_direction["right"]+=1				
-			elif(left_sensor=='0' and right_sensor=='1'):
-				print("------------>  turn left")
-				required_direction["right"]+=1
-				if(required_direction["leftt"]>0):required_direction["leftt"]-=1
-				go_forward()
-			elif(left_sensor=='1' and right_sensor=='0'):
-				print("------------>  turn right")
-				required_direction["left"]+=1
-				if(required_direction["right"]>0):required_direction["right"]-=1
-				go_forward()
-			elif(left_sensor=='1' and right_sensor=='1'):
-				print("------------>  move backward")
-
-		elif(input_direction=="left"):
-			pass
-		elif(input_direction=="right"):
-			pass
-
-		print(required_direction)
-		compass(input_direction)
-
 	def come_back(self):
 		print("bot rotated 180 degree to move back")
 		while(len(self.history_stack)>0):
@@ -60,13 +13,16 @@ class auto_traction():
 				print("move left")
 			elif move=="L":
 				print("move right")
+		print("history_stack is empty")
 
-	def long_focus_traction(self):#gps based traction
+	def large_area_traction(self):		#gps based traction
+		# graphopper.py code here
 		#retrun direction_from_api
 		pass
 
-	def small_focus_traction(self,direction_from_api):#sensor based traction
+	def small_area_traction(self,direction_from_api):#sensor based traction
 		#self.compass()
+		# compass.py code here
 		pass
 		
 	
@@ -78,7 +34,7 @@ class auto_traction():
 			self.come_back()
 		else:
 			print("bot is near")
-			direction=self.long_focus_traction()
+			direction=self.large_area_traction()
 			self.small_focus_traction(direction)
 
 if __name__ == "__main__":
