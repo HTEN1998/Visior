@@ -1,6 +1,5 @@
 # from UltrasonicDriver import UltraSonicControl
 # from MotorDriver import *
-import time
 
 class auto_traction():
 
@@ -19,19 +18,21 @@ class auto_traction():
 				if self.front_sensor==1:
 					return
 				else:
-					print("------------>  move forward")	#drive bot to front
+					print("go_forward: ----->  move forward")	#drive bot to front
 					# MoveForward()
 					count+=1
 
 	def reset_compass_angle(self,angle):
 		if angle==360 or angle==-360:
 			angle=0
+		print("reset_compass_angle: called angle= ",angle)
 		return angle
 
 	def backtracker(self):
+		print("backtracker: called")
 		#b = UltraSonicControl()
 		while(True):
-			print("------------>  move back")
+			print("backtracker: ----->  move back")
 			#MoveBackward()
 
 			self.left_sensor=int(input("backtracker: left block? "))
@@ -43,33 +44,36 @@ class auto_traction():
 			if(self.left_sensor==0):
 				self.compass_angle+=90
 				self.compass_angle = self.reset_compass_angle(self.compass_angle)
-				print("------------>  turn backtracker left")	
+				print("backtracker: ----->  turn left")	
 				#MoveLeft()
 				return
 			elif(self.right_sensor==0):
 				self.compass_angle-=90
 				self.compass_angle = self.reset_compass_angle(self.compass_angle)
-				print("------------>  turn backtracker right")	
+				print("backtracker: ----->  turn right")	
 				#MoveRight()
 				return
 
 
 	def compass(self,input_direction):
+		print("compass: called")
 		count = 0
 		#timeout = time.time()+10		#loop runs for 10 seconds
 		#b = UltraSonicControl()
-		while (count<10):
+		if input_direction=="left":
+			print("compass: intial  turn left")
+			# MoveLeft()
+			# go_forward()
+		elif input_direction=="right":
+			print("compass : intial turn right")
+			# MoveRight()
+			# self.go_forward()
+		elif input_direction=="front":
+			print("compass : intial front motion")
+			self.go_forward()
 
-			if input_direction=="left":
-				print("------------>  turn left")
-				# MoveLeft()
-				# go_forward()
-			elif input_direction=="right":
-				print("------------>  turn right")
-				# MoveRight()
-				# self.go_forward()
-			elif input_direction=="front":
-				self.go_forward()
+		while (count<2):
+			print("compass: loop started",count)
 
 			self.left_sensor=int(input("Compass: left block? "))
 			# b.UltrasonicLookLeft(0)
@@ -89,14 +93,14 @@ class auto_traction():
 				right_list=[abs(-360-temp_right_angle),abs(360-temp_right_angle),abs(0-temp_right_angle)]
 				
 				if (min(left_list)<min(right_list)):	# move left is compass angle is near to 360 or 0 degree
-					print("------------> compass  turn left")
+					print("compass ----->   turn left")
 					self.compass_angle+=90
 					self.compass_angle = self.reset_compass_angle(self.compass_angle)
 					# MoveLeft()
 					# self.go_forward()
 
 				elif(min(left_list)>=min(right_list)):
-					print("------------>  compass turn right")
+					print("compass -----> turn right")
 					self.compass_angle-=90
 					self.compass_angle = self.reset_compass_angle(self.compass_angle)
 					# MoveRight()
@@ -104,30 +108,30 @@ class auto_traction():
 
 
 			elif(self.left_sensor==0 and self.right_sensor==1): #no block detected on left 
-					print("------------>  comapss turn left")
+					print("compass -----> turn left")
 					self.compass_angle+=90
 					self.compass_angle = self.reset_compass_angle(self.compass_angle)
 					# MoveLeft()
 					# self.go_forward()
 
 			elif(self.left_sensor==1 and self.right_sensor==0): #no block detected on right 
-					print("------------>  compass turn right")
+					print("compass -----> turn right")
 					self.compass_angle-=90
 					self.compass_angle = self.reset_compass_angle(self.compass_angle)
 					# MoveRight()
 					# self.go_forward()
 
 			elif(self.left_sensor==1 and self.right_sensor==1):  #dead end conditon
-				self.front_sensor=int(input("forward block? "))	#checking front sensor to finalize dead end
+				self.front_sensor=int(input("compass: forward block? "))	#checking front sensor to finalize dead end
 				# b.UltrasonicLookInFront()
 				# self.front_sensor = int(not b.clearAhead(True))
 				if self.front_sensor==1:
 					self.backtracker()
-			if count==2:
-				print("compass end",count)
-				return
-		
-		
+				else:
+					self.go_forward()
+			count+=1
+			
+					
 nv=auto_traction()
 print("gps command: move forward direction")
 nv.compass("front")
