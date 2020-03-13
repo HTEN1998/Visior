@@ -1,9 +1,21 @@
 import requests
 from pprint import pprint
 
-r = requests.get("https://graphhopper.com/api/1/route?point=19.185206, 72.975723&point=19.179911, 72.980190&vehicle=foot&locale=en&calc_points=true&key=api_key")
-
+# current co-ordinates
+cx=19.185206
+cy=72.975723
+# goal co-ordinates
+gx=19.179911
+gy=72.980190
+r = requests.get("https://graphhopper.com/api/1/route?point="+str(cx)+","+str(cy)+"&point="+str(gx)+","+str(gy)+"&vehicle=foot&locale=en&calc_points=true&key=apikey")
 pprint(r.json())
+data = r.json()
 
-with open('data.json', 'w', encoding='utf-8') as f:
-    json.dump(r.json(), f, ensure_ascii=False, indent=4)
+direction = []
+length = len(data['paths'][0]['instructions'])
+print("length= ",length)
+
+for i in range(0,length):
+	direction.append(data['paths'][0]['instructions'][i]['sign'])
+
+print(direction)
