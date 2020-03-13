@@ -6,7 +6,7 @@ class auto_traction():
 		pass
 
 	def large_area_traction(self,cx,cy,gx,gy):		#gps based traction
-		r = requests.get("https://graphhopper.com/api/1/route?point="+str(cx)+","+str(cy)+"&point="+str(gx)+","+str(gy)+"&vehicle=foot&locale=en&calc_points=true&key=bb5794b7-0b67-401c-834c-81aee1a1302d")
+		r = requests.get("https://graphhopper.com/api/1/route?point="+str(cx)+","+str(cy)+"&point="+str(gx)+","+str(gy)+"&vehicle=foot&locale=en&calc_points=true&key=apikey")
 		# pprint(r.json())
 		data = r.json()
 		direction = []
