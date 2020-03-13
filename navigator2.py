@@ -1,24 +1,22 @@
+import requests
+
 class auto_traction():
 	
-	history_stack=["F","F","F","F","F","L","F","F","F","R","F","F","F","F","F","F","R","F","F","R","F","F","F","F","L","F","F","F"]
-	required_direction={"left":0,"right":0}
-
 	def come_back(self):
-		print("bot rotated 180 degree to move back")
-		while(len(self.history_stack)>0):
-			move = self.history_stack.pop()
-			if move=="F":
-				print("move forward")
-			elif move=="R":
-				print("move left")
-			elif move=="L":
-				print("move right")
-		print("history_stack is empty")
-
-	def large_area_traction(self):		#gps based traction
-		# graphopper.py code here
-		#retrun direction_from_api
 		pass
+
+	def large_area_traction(self,cx,cy,gx,gy):		#gps based traction
+		r = requests.get("https://graphhopper.com/api/1/route?point="+str(cx)+","+str(cy)+"&point="+str(gx)+","+str(gy)+"&vehicle=foot&locale=en&calc_points=true&key=bb5794b7-0b67-401c-834c-81aee1a1302d")
+		# pprint(r.json())
+		data = r.json()
+		direction = []
+		length = len(data['paths'][0]['instructions'])
+		print("length= ",length)
+		for i in range(0,length):
+			direction.append(data['paths'][0]['instructions'][i]['sign'])
+		# small_area_traction(direction[0])
+		return direction[0]
+		
 
 	def small_area_traction(self,direction_from_api):#sensor based traction
 		#self.compass()
@@ -46,5 +44,4 @@ if __name__ == "__main__":
 	goal_location=[gx,gy]
 
 	nv.distance_calculator(current_location,goal_location)
-
-	nv.navigator
+	nv.large_area_traction(cx,cy,gx,gy)
