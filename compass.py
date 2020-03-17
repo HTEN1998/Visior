@@ -67,7 +67,7 @@ class auto_traction():
 				print("backtracker: --------------->  turn right")	
 				#MoveRight()
 				# sleep(0.5)
-				# return
+				return
 
 
 	def compass(self,input_direction):
@@ -109,14 +109,12 @@ class auto_traction():
 					self.compass_angle+=90
 					self.compass_angle = self.reset_compass_angle(self.compass_angle)
 					# MoveLeft()
-					# self.go_forward()
 
 				elif(min(left_list)>=min(right_list)):
 					print("compass -----> turn right")
 					self.compass_angle-=90
 					self.compass_angle = self.reset_compass_angle(self.compass_angle)
 					# MoveRight()
-					# self.go_forward()
 
 
 			elif(self.left_sensor==False and self.right_sensor==True): #no block detected on left 
@@ -124,17 +122,16 @@ class auto_traction():
 					self.compass_angle+=90
 					self.compass_angle = self.reset_compass_angle(self.compass_angle)
 					# MoveLeft()
-					# self.go_forward()
 
 			elif(self.left_sensor==True and self.right_sensor==False): #no block detected on right 
 					print("compass -----> turn right")
 					self.compass_angle-=90
 					self.compass_angle = self.reset_compass_angle(self.compass_angle)
 					# MoveRight()
-					# self.go_forward()
 
 			elif(self.left_sensor==True and self.right_sensor==True):  #dead end conditon
 				self.backtracker()
+			self.go_forward()
 			
 					
 nv=auto_traction()
