@@ -18,22 +18,21 @@ class auto_traction():
 	def go_forward(self):
 		b = self.b
 		while True:
-				self.front_sensor = input("front clear ? ").title() == "True"
+				self.front_sensor = input("front block detected ? ").title() == "True"
 				# self.front_sensor = b.CheckFront()[0]		#asking front sensor
-				if self.front_sensor == False:
-					print("ji")
+				if self.front_sensor == True:
 					# MoveBackward()
 					# sleep(0.1)
 					# ResetMotorPins()
 					return				
-				elif self.front_sensor == True:
-					print(" go_forward: --------------->  move forward")	#drive bot to front
+				elif self.front_sensor == False:
+					print("angle:{} compass: {}".format(self.compass_angle,"move forward"))	#drive bot to front
 					# MoveForward()
 
 	def reset_compass_angle(self,angle):
 		if angle==360 or angle==-360:
 			angle=0
-		print("reset_compass_angle: angle= ",angle)
+		# print("reset_compass_angle: angle= ",angle)
 		return angle
 
 	def backtracker(self):
@@ -47,8 +46,8 @@ class auto_traction():
 			# sleep(0.1)
 			# ResetMotorPins()
 
-			self.left_sensor = input("left clear ? ").title() == "True"
-			self.right_sensor = input("right clear ? ").title() == "True"
+			self.left_sensor = input("left block detected? ").title() == "True"
+			self.right_sensor = input("rightblock detected ? ").title() == "True"
 			# self.left_sensor=b.CheckLeft()[0]
 			# sleep(1)
 			# self.right_sensor=b.CheckRight()[0]
@@ -57,14 +56,14 @@ class auto_traction():
 			if(self.left_sensor==False):
 				self.compass_angle+=90
 				self.compass_angle = self.reset_compass_angle(self.compass_angle)
-				print("backtracker: --------------->  turn left")	
+				print("angle:{} backtracker: {}".format(self.compass_angle,"move left"))
 				#MoveLeft()
 				# sleep(0.5)
 				return
 			elif(self.right_sensor==False):
 				self.compass_angle-=90
 				self.compass_angle = self.reset_compass_angle(self.compass_angle)
-				print("backtracker: --------------->  turn right")	
+				print("angle:{} compass: {}".format(self.compass_angle,"move right"))
 				#MoveRight()
 				# sleep(0.5)
 				return
@@ -73,7 +72,10 @@ class auto_traction():
 	def compass(self,input_direction):
 		print("compass: called")
 		# b = self.b
-		if input_direction=="left":
+		if input_direction=="stop":
+			print("compass : stopped")
+			return
+		elif input_direction=="left":
 			print("compass: intial  turn left")
 			# MoveLeft()
 			# go_forward()
@@ -103,30 +105,29 @@ class auto_traction():
 
 				left_list=[abs(-360-temp_left_angle),abs(360-temp_left_angle),abs(0-temp_left_angle)]
 				right_list=[abs(-360-temp_right_angle),abs(360-temp_right_angle),abs(0-temp_right_angle)]
-				
 				if (min(left_list)<min(right_list)):	# move left is compass angle is near to 360 or 0 degree
-					print("compass ----->   turn left")
 					self.compass_angle+=90
 					self.compass_angle = self.reset_compass_angle(self.compass_angle)
+					print("angle:{} compass: {}".format(self.compass_angle,"move left"))
 					# MoveLeft()
 
 				elif(min(left_list)>=min(right_list)):
-					print("compass -----> turn right")
 					self.compass_angle-=90
 					self.compass_angle = self.reset_compass_angle(self.compass_angle)
+					print("angle:{} compass: {}".format(self.compass_angle,"move right"))
 					# MoveRight()
 
 
 			elif(self.left_sensor==False and self.right_sensor==True): #no block detected on left 
-					print("compass -----> turn left")
 					self.compass_angle+=90
 					self.compass_angle = self.reset_compass_angle(self.compass_angle)
+					print("angle:{} compass: {}".format(self.compass_angle,"move left"))
 					# MoveLeft()
 
 			elif(self.left_sensor==True and self.right_sensor==False): #no block detected on right 
-					print("compass -----> turn right")
 					self.compass_angle-=90
 					self.compass_angle = self.reset_compass_angle(self.compass_angle)
+					print("angle:{} compass: {}".format(self.compass_angle,"move right"))
 					# MoveRight()
 
 			elif(self.left_sensor==True and self.right_sensor==True):  #dead end conditon
